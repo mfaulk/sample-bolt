@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Fill this in
-APP_NAME="your-app"
+APP_NAME="sample-bolt"
 
 # Fill this in
-GIT_REPO="github.com/your-user-name/your-project.git"
+GIT_REPO="github.com/mfaulk/sample-bolt.git"
 
 sed -e "s:APP_NAME:${APP_NAME}:g" \
 	-e "s:GIT_REPO:${GIT_REPO}:g" \

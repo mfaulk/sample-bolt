@@ -1,0 +1,18 @@
+[Unit]
+Description=Sample Kafka producer
+
+[Service]
+EnvironmentFile=/etc/environment
+
+## Directives with "=-" are allowed to fail without consequence.
+ExecStartPre=-/usr/bin/docker kill sample-bolt
+ExecStartPre=-/usr/bin/docker rm sample-bolt
+
+ExecStartPre=/bin/sh -c "/usr/bin/docker build -t sample-bolt \ 
+github.com/mfaulk/sample-bolt.git"
+
+ExecStart=/usr/bin/sh -c '/usr/bin/docker run --name sample-bolt \
+	-e KAFKA_BROKER=$(/usr/bin/etcdctl get /services/kafka):9092 \
+	sample-bolt'
+
+ExecStop=/usr/bin/docker stop sample-bolt
