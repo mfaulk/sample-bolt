@@ -4,15 +4,17 @@ Description=Sample Kafka producer
 [Service]
 EnvironmentFile=/etc/environment
 
+# Prevents timeouts, e.g. while building a docker image from github.
+TimeoutStartSec=0
+
 ## Directives with "=-" are allowed to fail without consequence.
 ExecStartPre=-/usr/bin/docker kill sample-bolt
 ExecStartPre=-/usr/bin/docker rm sample-bolt
 
-ExecStartPre=/bin/sh -c "/usr/bin/docker build -t sample-bolt \ 
-github.com/mfaulk/sample-bolt.git"
+ExecStartPre=/bin/sh -c "/usr/bin/docker build -t sample-bolt github.com/mfaulk/sample-bolt.git"
 
 ExecStart=/usr/bin/sh -c '/usr/bin/docker run --name sample-bolt \
-	-e KAFKA_BROKER=$(/usr/bin/etcdctl get /services/kafka):9092 \
+	-e KAFKA_BROKER=$(/usr/bin/etcdctl ls /services/kafka | tail -n 1 | xargs etcdctl get) \
 	sample-bolt'
 
 ExecStop=/usr/bin/docker stop sample-bolt
