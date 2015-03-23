@@ -18,13 +18,6 @@ kafka = KafkaClient(KAFKA_BROKER_IP_PORT)
 producer = SimpleProducer(kafka)
 consumer = KafkaConsumer('fortune-cookie', group_id="my_group", metadata_broker_list=[KAFKA_BROKER_IP_PORT])
 
-for message in consumer:
-    # message is raw byte string -- decode if necessary!
-    # e.g., for unicode: `message.decode('utf-8')`
-    execute(message)
-
-# kafka.close()
-
 def execute(message):
 	# IMPLEMENT THIS
 	print message
@@ -43,3 +36,12 @@ def emit(topic, msg):
 
 def close():
 	kafka.close()
+
+if __name__=="__main__":
+	for message in consumer:
+    # message is raw byte string -- decode if necessary!
+    # e.g., for unicode: `message.decode('utf-8')`
+    execute(message)
+
+	# kafka.close()
+   
