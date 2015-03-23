@@ -39,9 +39,9 @@ def close():
 
 if __name__=="__main__":
 	for message in consumer:
-    # message is raw byte string -- decode if necessary!
-    # e.g., for unicode: `message.decode('utf-8')`
-    execute(message)
+    	# message is raw byte string -- decode if necessary!
+    	# e.g., for unicode: `message.decode('utf-8')`
+    	execute(message)
 
 	# kafka.close()
    
