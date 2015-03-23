@@ -12,6 +12,7 @@ You will deploy your app by referencing a GitHub repository. Create a new GitHub
 ```
 git remote rm origin
 git remote add origin https://github.com/user/newrepo.git
+git push -u origin master
 ```
 
 The command `git remote -v` should now show
